@@ -6,56 +6,72 @@
     <title>Formulario de Contacto</title>
 
     <style>
-
-        body{
+        body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
 
-        .contenedor{
-            background: white;
+        .contenedor {
+            background-color: white;
             padding: 30px;
             border-radius: 10px;
             width: 350px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
         }
 
-        h2{
+        h2 {
             text-align: center;
         }
 
-        input, textarea{
+        label {
+            font-weight: bold;
+        }
+
+        input, textarea {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
             margin-bottom: 15px;
+            box-sizing: border-box;
         }
 
-        button{
+        button {
             width: 100%;
             padding: 12px;
-            border: none;
-            background-color: black;
+            background-color: #000;
             color: white;
+            border: none;
             cursor: pointer;
         }
 
-        button:hover{
+        button:hover {
             background-color: #333;
         }
 
+        .mensaje-exito {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
     </style>
-
 </head>
 <body>
 
     <div class="contenedor">
 
         <h2>Contáctame</h2>
+
+        <div id="mensajeExito" class="mensaje-exito">
+            Mensaje enviado correctamente. Pronto me pondré en contacto contigo.
+        </div>
 
         <form action="https://formsubmit.co/jose.ruiz.ariza@gmail.com" method="POST">
 
@@ -68,28 +84,25 @@
             <label>Mensaje</label>
             <textarea name="mensaje" rows="5" required></textarea>
 
-            <!-- Asunto del correo -->
-            <input type="hidden" 
-                   name="_subject" 
-                   value="Nuevo mensaje desde GitHub Pages">
+            <input type="hidden" name="_subject" value="Nuevo mensaje desde GitHub Pages">
 
-            <!-- Desactivar captcha -->
-            <input type="hidden" 
-                   name="_captcha" 
-                   value="false">
+            <input type="hidden" name="_captcha" value="false">
 
-            <!-- Página de confirmación -->
-            <input type="hidden" 
-                   name="_next" 
-                   value="https://jruiz18.github.io/gracias.html">
+            <input type="hidden" name="_next" value="https://jruiz18.github.io/formulario-contacto/?enviado=true">
 
-            <button type="submit">
-                Enviar mensaje
-            </button>
+            <button type="submit">Enviar mensaje</button>
 
         </form>
 
     </div>
+
+    <script>
+        const parametros = new URLSearchParams(window.location.search);
+
+        if (parametros.get("enviado") === "true") {
+            document.getElementById("mensajeExito").style.display = "block";
+        }
+    </script>
 
 </body>
 </html>
